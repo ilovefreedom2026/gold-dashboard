@@ -901,7 +901,7 @@
     const cardIds = ['card-sjc','card-doji','card-pnj','card-btmc','card-btmh','card-phuquy','card-mihong','card-ngoctham','card-silver-phuquy','card-exchange-vcb'];
     const goldCardIds = cardIds.slice(0, 8);
     const silverAndExchangeIds = cardIds.slice(8);
-    const PROXY_URL = 'http://localhost:3000/scrape';
+    const PROXY_URL = '/scrape';
     // Helpers: parse numbers returned by server which may be numbers or strings like "138.100" or "-"
     function parseNumberFromServer(v) {
       if (v === undefined || v === null) return undefined;
@@ -1123,7 +1123,7 @@
     // Ticker: fetch /ticker and update scrolling text
     async function fetchTicker() {
       try {
-        const res = await fetch('http://localhost:3000/ticker');
+        const res = await fetch('/ticker');
         if (!res.ok) throw new Error('Ticker fetch failed');
         const j = await res.json();
         if (!j.success) throw new Error('Ticker response not success');
@@ -1427,16 +1427,16 @@
       })('card-exchange-vcb');
       // fetch phuquy silver update via server proxy
       async function fetchPhuquySilverTime() {
-        try {
-          const res = await fetch('http://localhost:3000/phuquy-silver');
-          if (!res.ok) throw new Error('phuquy proxy failed ' + res.status);
-          const j = await res.json();
-          if (j && j.success && j.time) return j.time;
-        } catch (e) {
-          console.warn('fetchPhuquySilverTime error', e && e.message);
-        }
-        return null;
-      }
+  try {
+    const res = await fetch('/phuquy-silver');
+    if (!res.ok) throw new Error('phuquy proxy failed ' + res.status);
+    const j = await res.json();
+    if (j && j.success && j.time) return j.time;
+  } catch (e) {
+    console.warn('fetchPhuquySilverTime error', e && e.message);
+  }
+  return null;
+}
       // patch fetchRealUpdate to update badges as requested:
       const origFetch = window.fetchRealUpdate;
       if (typeof origFetch === 'function') {
