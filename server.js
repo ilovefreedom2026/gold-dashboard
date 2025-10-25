@@ -61,12 +61,35 @@ async function fetchHtmlWithOptionalRender(url, renderWait = 1800) {
   }
 }
 
-// --- Scrape stubs (giữ nguyên toàn bộ logic của bạn) ---
-async function scrapeGold() { /* ... giữ nguyên logic cũ của bạn ... */ }
-async function scrapeSilver() { /* ... giữ nguyên logic cũ của bạn ... */ }
-async function scrapeExchange() { /* ... giữ nguyên logic cũ của bạn ... */ }
-async function scrapeCoccoc() { /* ... giữ nguyên logic cũ của bạn ... */ }
-async function scrapeBTMH() { /* ... giữ nguyên logic cũ của bạn ... */ }
+// --- Scrape stubs (tạm thời: trả dữ liệu giả để Render không lỗi) ---
+async function scrapeGold() {
+  return {
+    update_time: new Date().toLocaleString('vi-VN'),
+    SJC: { mieng_buy: 98.1, mieng_sell: 98.5, nhan_buy: 97.8, nhan_sell: 98.2 },
+    DOJI: { mieng_buy: 97.9, mieng_sell: 98.4, nhan_buy: 97.6, nhan_sell: 98.1 }
+  };
+}
+async function scrapeSilver() {
+  return {
+    update_time: new Date().toLocaleString('vi-VN'),
+    phuquy: { mieng_buy: 31.2, mieng_sell: 32.0, thoi_buy: 30.8, thoi_sell: 31.6 }
+  };
+}
+async function scrapeExchange() {
+  return {
+    update_time: new Date().toLocaleString('vi-VN'),
+    vcb: { mua_cash: 24700, mua_transfer: 24750, ban_ra: 25000 }
+  };
+}
+async function scrapeCoccoc() {
+  return {
+    update_time: new Date().toLocaleString('vi-VN'),
+    xau: 2385.25
+  };
+}
+async function scrapeBTMH() {
+  return { update_time: new Date().toLocaleString('vi-VN') };
+}
 
 // --- Orchestrator ---
 async function scrapeAllOnce() {
