@@ -1,0 +1,165 @@
+{
+  "gold": {
+    "update_time": "17:47:00 8/10/2025",
+    "SJC": {
+      "mieng_buy": "140.500",
+      "mieng_sell": "142.500",
+      "nhan_buy": "136.800",
+      "nhan_sell": "139.600",
+      "mieng_buy_change": "-",
+      "mieng_sell_change": "-",
+      "nhan_buy_change": "-",
+      "nhan_sell_change": "-"
+    },
+    "PNJ": {
+      "mieng_buy": "140.500",
+      "mieng_sell": "142.500",
+      "nhan_buy": "136.800",
+      "nhan_sell": "139.800",
+      "mieng_buy_change": "-",
+      "mieng_sell_change": "-",
+      "nhan_buy_change": "-",
+      "nhan_sell_change": "-"
+    },
+    "DOJI": {
+      "mieng_buy": "140.500",
+      "mieng_sell": "142.500",
+      "nhan_buy": "136.800",
+      "nhan_sell": "139.800",
+      "mieng_buy_change": "-",
+      "mieng_sell_change": "-",
+      "nhan_buy_change": "-",
+      "nhan_sell_change": "-"
+    },
+    "BTMC": {
+      "mieng_buy": "140.500",
+      "mieng_sell": "142.500",
+      "nhan_buy": "138.200",
+      "nhan_sell": "141.200",
+      "mieng_buy_change": "-",
+      "mieng_sell_change": "-",
+      "nhan_buy_change": "-",
+      "nhan_sell_change": "-"
+    },
+    "BTMH": {
+      "mieng_buy": "138.200",
+      "mieng_sell": "140.000",
+      "nhan_buy": "135.300",
+      "nhan_sell": "138.200",
+      "mieng_buy_change": "-",
+      "mieng_sell_change": "-",
+      "nhan_buy_change": "-",
+      "nhan_sell_change": "-"
+    },
+    "PHUQUY": {
+      "mieng_buy": "140.000",
+      "mieng_sell": "142.500",
+      "nhan_buy": "137.500",
+      "nhan_sell": "140.500",
+      "mieng_buy_change": "-",
+      "mieng_sell_change": "-",
+      "nhan_buy_change": "-",
+      "nhan_sell_change": "-"
+    },
+    "MIHONG": {
+      "mieng_buy": "141.500",
+      "mieng_sell": "142.500",
+      "nhan_buy": "138.000",
+      "nhan_sell": "139.500",
+      "mieng_buy_change": "-",
+      "mieng_sell_change": "-",
+      "nhan_buy_change": "-",
+      "nhan_sell_change": "-"
+    },
+    "NGOCTHAM": {
+      "mieng_buy": "140.500",
+      "mieng_sell": "142.500",
+      "nhan_buy": "136.500",
+      "nhan_sell": "140.000",
+      "mieng_buy_change": "-",
+      "mieng_sell_change": "-",
+      "nhan_buy_change": "-",
+      "nhan_sell_change": "-"
+    },
+    "update_time_scraped": "17:47:00 8/10/2025"
+  },
+  "silver": {
+    "update_time": "17:47:00 8/10/2025",
+    "phuquy": {
+      "mieng_buy": 1561000,
+      "mieng_sell": 1931000,
+      "thoi_buy": 49946542,
+      "thoi_sell": 51493205,
+      "mieng_buy_change": "-",
+      "mieng_sell_change": "-",
+      "thoi_buy_change": "-",
+      "thoi_sell_change": "-",
+      "thoi_unit": "Vnđ/Kg"
+    },
+    "update_time_scraped": "17:47:00 8/10/2025"
+  },
+  "exchange": {
+    "update_time": "17:47:00 8/10/2025",
+    "source": "webgia",
+    "vcb": {
+      "mua_cash": "26.139",
+      "mua_transfer": "26.169",
+      "ban_ra": "26.389"
+    },
+    "update_time_scraped": "17:47:00 8/10/2025"
+  },
+  "coccoc": {
+    "update_time": "17:47:00 8/10/2025",
+    "candidates": [
+      {
+        "match": "1",
+        "context": "|| []).push( arguments) }, g[o]['t'] = * new Date })(window, '_googCsa'); if ("
+      },
+      {
+        "match": "1",
+        "context": "} var to = Object(target); for (var i = ; i < arguments.length; i++) { var nextS"
+      },
+      {
+        "match": "0",
+        "context": "ject(nextSource)); for (var nextIndex = , len = keysArray.length; nextIndex < le"
+      },
+      {
+        "match": "1",
+        "context": "s*(\\d+)/i) || []; if (/trident/i.test(M[])) { tem = /\\brv[ :]+(\\d+)/g.exec(ua) |"
+      },
+      {
+        "match": "1",
+        "context": "[]; return { name: 'IE', version: (tem[] || '') }; } if (M[1] === 'Chrome') { t"
+      },
+      {
+        "match": "1",
+        "context": "/); if (tem != null) return { name: tem[].replace('OPR', 'Opera').replace('coc_c"
+      },
+      {
+        "match": "2",
+        "context": "oc_browser', 'coccoc'), version: tem[] }; } M = M[2] ? [M[1], M[2]] : [naviga"
+      },
+      {
+        "match": "1",
+        "context": "h(/version\\/(\\d+)/i)) != null) M.splice(, 1, tem[1]); return { name: M[0], versi"
+      },
+      {
+        "match": "1",
+        "context": "on: M[] }; })(); function logError(win) { var"
+      },
+      {
+        "match": "0",
+        "context": "d); hasPending = false; toSend = []; }, ); } } win.onerror = function () { var p"
+      },
+      {
+        "match": "0",
+        "context": "ar encodedLogs = []; try { for (var i = ; i < logs.length; i++) { encodedLogs[i]"
+      },
+      {
+        "match": "0",
+        "context": "sion; } } catch (e) { if (logs.length > && logs[0].context && logs[0].context.s"
+      }
+    ],
+    "update_time_scraped": "17:47:00 8/10/2025"
+  }
+}

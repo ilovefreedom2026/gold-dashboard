@@ -1,0 +1,6 @@
+Xem kết quả scrape từ server:
+http://localhost:3000/scrape
+
+chạy http server thủ công: 
+cd 'C:\Users\T\gold-price-scraper'
+$env:ENABLE_RENDER='1'; $env:RENDER_WAIT='2500'; node .\server.js

@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <title>Dashboard Giá Vàng & Bạc — Realtime</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <style>
+    :root {
+      --gold-1: #F7E0A1;
+      --gold-2: #E6C97A;
+      --accent: #b8860b;
+      --card-border: #E6D3A3;
+      --bg: #f4f2ed;
+    }
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      font-family: Inter, Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: #111;
+    }
+    .app {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 12px;
+      padding: 12px;
+      height: calc(100vh - 48px - 38px);
+      margin-top: -10px;
+    }
+    .left {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-auto-rows: 150px;
+      gap: 6px;
+      overflow-y: auto;
+      padding-right: 6px;
+    }
+    .right {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      height: 100%;
+    }
+    .chart-box {
+      flex: 1 1 60%;
+      border-radius: 10px;
+      border: 1px solid var(--card-border);
+      background: linear-gradient(90deg, var(--gold-1), #fff);
+      overflow: hidden;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+    }
+    .silver-box {
+      flex: 0 0 38%;
+      display: grid;
+      grid-template-rows: 150px 120px;
+      gap: 10px;
+    }
+    .card {
+      width: 100%;
+      height: 100%;
+      perspective: 1000px;
+      position: relative;
+      overflow: hidden;
+      opacity: 1;
+      transition: opacity 0.3s ease;
+    }
+    .card.hidden {
+      opacity: 0;
+    }
+    .card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transition: transform 0.7s ease;
+      transform-style: preserve-3d;
+    }
+    .card.flipped .card-inner {
+      transform: rotateY(180deg);
+    }
+    .card.shine::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+      animation: shine-effect 1.5s ease-in-out;
+      z-index: 2;
+    }
+    @keyframes shine-effect {
+      0% { left: -100%; }
+      100% { left: 100%; }
+    }
+    .card-face {
+      position: absolute;
+      inset: 0;
+      backface-visibility: hidden;
+      border-radius: 8px;
+      border: 1px solid var(--card-border);
+      background: linear-gradient(90deg, var(--gold-1), #fff);
+      display: flex;
+      padding: 10px;
+      gap: 10px;
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.06);
+    }
+    .card-back {
+      transform: rotateY(180deg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(90deg, var(--gold-1), #fff);
+    }
+    .logo {
+      width: 108px;
+      flex: 0 0 108px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 6px;
+      background: transparent;
+    }
+    .logo img {
+      max-width: 92px;
+      max-height: 92px;
+      object-fit: contain;
+    }
+    .silver-logo {
+      width: 30px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 8px;
+    }
+    .silver-logo img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+    }
+    .info {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .info-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 30px;
+    }
+    .info-header.silver-header {
+      justify-content: flex-start;
+    }
+    .brand {
+      font-weight: 700;
+      color: var(--accent);
+      font-size: 20px;
+    }
+    .unit {
+      font-size: 12px;
+      color: #444;
+      text-align: right;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 6px;
+      font-size: 15px;
+      table-layout: fixed;
+    }
+    th {
+      padding: 6px 8px;
+      font-weight: 700;
+      color: #222;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    }
+    td {
+      padding: 6px 8px;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+      vertical-align: middle;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    td.label {
+      font-weight: 700;
+      width: 40%;
+      color: #222;
+    }
+    td.buy {
+      color: #0b8a3e;
+      font-weight: 700;
+      text-align: center;
+      width: 15%;
+    }
+    td.sell {
+      color: #c41c2b;
+      font-weight: 700;
+      text-align: center;
+      width: 15%;
+    }
+    td.change {
+      width: 15%;
+      text-align: center;
+      font-weight: 600;
+    }
+    .silver-table td.label {
+      width: 60% !important;
+    }
+    .silver-table td.buy,
+    .silver-table td.sell,
+    .silver-table td.unit,
+    .silver-table td.change {
+      width: 12% !important;
+    }
+    td.unit {
+      text-align: center;
+      font-size: 12px;
+      color: #444;
+    }
+    .change-up {
+      color: #0b8a3e;
+    }
+    .change-down {
+      color: #c41c2b;
+    }
+    .exchange-table td.label {
+      width: 40%;
+    }
+    .exchange-table td.buy,
+    .exchange-table td.sell {
+      width: 20%;
+    }
+    .global-time {
+      grid-column: 1 / -1;
+      text-align: center;
+      font-size: 12px;
+      color: #333;
+      margin-top: 6px;
+    }
+    .ticker {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 48px;
+      background: linear-gradient(90deg, #b8860b, #e6c97a);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      font-weight: 700;
+      padding-left: 12px;
+      box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.12);
+    }
+    .ticker .text {
+      display: inline-block;
+      white-space: nowrap;
+      padding-left: 100%;
+      animation: scroll 22s linear infinite;
+    }
+    @keyframes scroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-100%); }
+    }
+    .main-title {
+      text-align: center;
+      padding: 6px 0;
+      background: linear-gradient(90deg, var(--gold-2), var(--gold-1));
+      color: var(--accent);
+      font-size: 24px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      margin: 0;
+      text-transform: uppercase;
+    }
+    .main-title h1 {
+      margin: 0;
+      position: relative;
+      z-index: 1;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+    .main-title::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+      animation: shine 4s linear infinite;
+    }
+    @keyframes shine {
+      0% { left: -100%; }
+      50% { left: 100%; }
+      100% { left: 100%; }
+    }
+    .card-face .logo,
+    .card-face .info {
+      min-height: 120px;
+    }
+    @media (max-width: 920px) {
+      .app {
+        grid-template-columns: 1fr;
+        height: calc(100vh - 48px - 38px);
+        margin-top: -10px;
+      }
+      .left {
+        grid-template-columns: 1fr 1fr;
+        grid-auto-rows: 130px;
+        gap: 6px;
+      }
+      .chart-box {
+        height: 360px;
+      }
+      .silver-box {
+        grid-template-rows: 130px 100px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="main-title">
+    <h1>Giá vàng trong nước và thế giới ngày <span id="current-date"></span></h1>
+  </header>
+
+  <div class="app">
+    <div class="left" id="leftGrid">
+      <div class="card" id="card-sjc">
+        <div class="card-inner">
+          <div class="card-face card-front">
+            <div class="logo"><img src="https://giavang.org/assets/images/gia-vang/logo-sjc.png" alt="SJC"></div>
+            <div class="info">
+              <div class="info-header">
+                <div class="brand">SJC</div>
+                <div class="unit">Đơn vị: triệu đồng / Lượng</div>
+              </div>
+              <table>
+                <tr><th class="label"></th><th>Mua vào</th><th>Bán ra</th><th>Biến động</th></tr>
+                <tr><td class="label">Vàng Miếng</td><td class="buy" id="sjc-mieng-buy">-</td><td class="sell" id="sjc-mieng-sell">-</td><td class="change" id="sjc-mieng-change">-</td></tr>
+                <tr><td class="label">Vàng Nhẫn</td><td class="buy" id="sjc-nhan-buy">-</td><td class="sell" id="sjc-nhan-sell">-</td><td class="change" id="sjc-nhan-change">-</td></tr>
+              </table>
+            </div>
+          </div>
+          <div class="card-face card-back">
+            <img src="https://giavang.org/assets/images/gia-vang/logo-sjc.png" alt="logo">
+          </div>
+        </div>
+      </div>
+      <div class="card" id="card-doji">
+        <div class="card-inner">
+          <div class="card-face card-front">
+            <div class="logo"><img src="https://giavang.org/assets/images/gia-vang/logo-doji.png" alt="DOJI"></div>
+            <div class="info">
+              <div class="info-header">
+                <div class="brand">DOJI</div>
+                <div class="unit">Đơn vị: triệu đồng / Lượng</div>
+              </div>
+              <table>
+                <tr><th class="label"></th><th>Mua vào</th><th>Bán ra</th><th>Biến động</th></tr>
+                <tr><td class="label">Vàng Miếng</td><td class="buy" id="doji-mieng-buy">-</td><td class="sell" id="doji-mieng-sell">-</td><td class="change" id="doji-mieng-change">-</td></tr>
+                <tr><td class="label">Vàng Nhẫn</td><td class="buy" id="doji-nhan-buy">-</td><td class="sell" id="doji-nhan-sell">-</td><td class="change" id="doji-nhan-change">-</td></tr>
+              </table>
+            </div>
+          </div>
+          <div class="card-face card-back"><img src="https://giavang.org/assets/images/gia-vang/logo-doji.png" alt="logo"></div>
+        </div>
+      </div>
+      <div class="card" id="card-pnj">
+        <div class="card-inner">
+          <div class="card-face card-front">
+            <div class="logo"><img src="https://giavang.org/assets/images/gia-vang/logo-pnj.png" alt="PNJ"></div>
+            <div class="info">
+              <div class="info-header">
+                <div class="brand">PNJ</div>
+                <div class="unit">Đơn vị: triệu đồng / Lượng</div>
+              </div>
+              <table>
+                <tr><th class="label"></th><th>Mua vào</th><th>Bán ra</th><th>Biến động</th></tr>
+                <tr><td class="label">Vàng Miếng</td><td class="buy" id="pnj-mieng-buy">-</td><td class="sell" id="pnj-mieng-sell">-</td><td class="change" id="pnj-mieng-change">-</td></tr>
+                <tr><td class="label">Vàng Nhẫn</td><td class="buy" id="pnj-nhan-buy">-</td><td class="sell" id="pnj-nhan-sell">-</td><td class="change" id="pnj-nhan-change">-</td></tr>
+              </table>
+            </div>
+          </div>
+          <div class="card-face card-back"><img src="https://giavang.org/assets/images/gia-vang/logo-pnj.png" alt="logo"></div>
+        </div>
+      </div>
+      <div class="card" id="card-btmc">
+        <div class="card-inner">
+          <div class="card-face card-front">
+            <div class="logo"><img src="https://giavang.org/assets/images/gia-vang/logo-bao-tin-minh-chau.png" alt="BTMC"></div>
+            <div class="info">
+              <div class="info-header">
+                <div class="brand">Bảo Tín Minh Châu</div>
+                <div class="unit">Đơn vị: triệu đồng / Lượng</div>
+              </div>
+              <table>
+                <tr><th class="label"></th><th>Mua vào</th><th>Bán ra</th><th>Biến động</th></tr>
+                <tr><td class="label">Vàng Miếng</td><td class="buy" id="btmc-mieng-buy">-</td><td class="sell" id="btmc-mieng-sell">-</td><td class="change" id="btmc-mieng-change">-</td></tr>
+                <tr><td class="label">Vàng Nhẫn</td><td class="buy" id="btmc-nhan-buy">-</td><td class="sell" id="btmc-nhan-sell">-</td><td class="change" id="btmc-nhan-change">-</td></tr>
+              </table>
+            </div>
+          </div>
+          <div class="card-face card-back"><img src="https://giavang.org/assets/images/gia-vang/logo-bao-tin-minh-chau.png" alt="logo"></div>
+        </div>
+      </div>
+      <div class="card" id="card-btmh">
+        <div class="card-inner">
+          <div class="card-face card-front">
+            <div class="logo"><img src="https://giavang.org/assets/images/gia-vang/logo-bao-tin-manh-hai.png" alt="BT Mạnh Hải"></div>
+            <div class="info">
+              <div class="info-header">
+                <div class="brand">Bảo Tín Mạnh Hải</div>
+                <div class="unit">Đơn vị: triệu đồng / Lượng</div>
+              </div>
+              <table>
+                <tr><th class="label"></th><th>Mua vào</th><th>Bán ra</th><th>Biến động</th></tr>
+                <tr><td class="label">Vàng Miếng</td><td class="buy" id="btmh-mieng-buy">-</td><td class="sell" id="btmh-mieng-sell">-</td><td class="change" id="btmh-mieng-change">-</td></tr>
+                <tr><td class="label">Vàng Nhẫn</td><td class="buy" id="btmh-nhan-buy">-</td><td class="sell" id="btmh-nhan-sell">-</td><td class="change" id="btmh-nhan-change">-</td></tr>
+              </table>
+            </div>
+          </div>
+          <div class="card-face card-back"><img src="https://giavang.org/assets/images/gia-vang/logo-bao-tin-manh-hai.png" alt="logo"></div>
+        </div>
+      </div>
+      <div class="card" id="card-phuquy">
+        <div class="card-inner">
+          <div class="card-face card-front">
+            <div class="logo"><img src="https://giavang.org/assets/images/gia-vang/logo-phu-quy.png" alt="Phú Quý"></div>
+            <div class="info">
+              <div class="info-header">
+                <div class="brand">Phú Quý</div>
+                <div class="unit">Đơn vị: triệu đồng / Lượng</div>
+              </div>
+              <table>
+                <tr><th class="label"></th><th>Mua vào</th><th>Bán ra</th><th>Biến động</th></tr>
+                <tr><td class="label">Vàng Miếng</td><td class="buy" id="phuquy-mieng-buy">-</td><td class="sell" id="phuquy-mieng-sell">-</td><td class="change" id="phuquy-mieng-change">-</td></tr>
+                <tr><td class="label">Vàng Nhẫn</td><td class="buy" id="phuquy-nhan-buy">-</td><td class="sell" id="phuquy-nhan-sell">-</td><td class="change" id="phuquy-nhan-change">-</td></tr>
+              </table>
+            </div>
+          </div>
+          <div class="card-face card-back"><img src="https://giavang.org/assets/images/gia-vang/logo-phu-quy.png" alt="logo"></div>
+        </div>
+      </div>
+      <div class="card" id="card-mihong">
+        <div class="card-inner">
+          <div class="card-face card-front">
+            <div class="logo"><img src="https://giavang.org/assets/images/gia-vang/logo-mi-hong.png" alt="Mi Hồng"></div>
+            <div class="info">
+              <div class="info-header">
+                <div class="brand">Mi Hồng</div>
+                <div class="unit">Đơn vị: triệu đồng / Lượng</div>
+              </div>
+              <table>
+                <tr><th class="label"></th><th>Mua vào</th><th>Bán ra</th><th>Biến động</th></tr>
+                <tr><td class="label">Vàng Miếng</td><td class="buy" id="mihong-mieng-buy">-</td><td class="sell" id="mihong-mieng-sell">-</td><td class="change" id="mihong-mieng-change">-</td></tr>
+                <tr><td class="label">Vàng Nhẫn</td><td class="buy" id="mihong-nhan-buy">-</td><td class="sell" id="mihong-nhan-sell">-</td><td class="change" id="mihong-nhan-change">-</td></tr>
+              </table>
+            </div>
+          </div>
+          <div class="card-face card-back"><img src="https://giavang.org/assets/images/gia-vang/logo-mi-hong.png" alt="logo"></div>
+        </div>
+      </div>
+      <div class="card" id="card-ngoctham">
+        <div class="card-inner">
+          <div class="card-face card-front">
+            <div class="logo"><img src="https://giavang.org/assets/images/gia-vang/logo-ngoc-tham.png" alt="Ngọc Thẩm"></div>
+            <div class="info">
+              <div class="info-header">
+                <div class="brand">Ngọc Thẩm</div>
+                <div class="unit">Đơn vị: triệu đồng / Lượng</div>
+              </div>
+              <table>
+                <tr><th class="label"></th><th>Mua vào</th><th>Bán ra</th><th>Biến động</th></tr>
+                <tr><td class="label">Vàng Miếng</td><td class="buy" id="ngoctham-mieng-buy">-</td><td class="sell" id="ngoctham-mieng-sell">-</td><td class="change" id="ngoctham-mieng-change">-</td></tr>
+                <tr><td class="label">Vàng Nhẫn</td><td class="buy" id="ngoctham-nhan-buy">-</td><td class="sell" id="ngoctham-nhan-sell">-</td><td class="change" id="ngoctham-nhan-change">-</td></tr>
+              </table>
+            </div>
+          </div>
+          <div class="card-face card-back"><img src="https://giavang.org/assets/images/gia-vang/logo-ngoc-tham.png" alt="logo"></div>
+        </div>
+      </div>
+      <div class="global-time" id="global-time">—</div>
+    </div>
+    <div class="right">
+      <div class="chart-box" id="tv-box">
+        <div id="tradingview_chart" style="width:100%;height:100%"></div>
+      </div>
+      <div class="silver-box">
+        <div class="card" id="card-silver-phuquy">
+          <div class="card-inner">
+            <div class="card-face card-front">
+              <div class="info">
+                <div class="info-header silver-header">
+                  <div class="silver-logo"><img src="https://giavang.org/assets/images/gia-vang/logo-phu-quy.png" alt="Phú Quý"></div>
+                  <div class="brand">Bạc Phú Quý</div>
+                </div>
+                <table class="silver-table">
+                  <tr><th class="label"></th><th>Mua vào</th><th>Bán ra</th><th>Đơn vị</th><th>Biến động</th></tr>
+                  <tr><td class="label">Bạc Miếng 999 1 Lượng</td><td class="buy" id="silver-mieng-buy">-</td><td class="sell" id="silver-mieng-sell">-</td><td class="unit">triệu / Lượng</td><td class="change" id="silver-mieng-change">-</td></tr>
+                  <tr><td class="label">Bạc Thỏi 999 1Kg</td><td class="buy" id="silver-thoi-buy">-</td><td class="sell" id="silver-thoi-sell">-</td><td class="unit">triệu / Kg</td><td class="change" id="silver-thoi-change">-</td></tr>
+                </table>
+              </div>
+            </div>
+            <div class="card-face card-back"><img src="https://giavang.org/assets/images/gia-vang/logo-phu-quy.png" alt="logo"></div>
+          </div>
+        </div>
+        <div class="card" id="card-exchange-vcb">
+          <div class="card-inner">
+            <div class="card-face card-front">
+              <div class="info">
+                <div class="info-header">
+                  <div class="brand">Tỷ giá USD/VND Vietcombank</div>
+                </div>
+                <table class="exchange-table">
+                  <tr><th class="label"></th><th>Mua tiền mặt (VNĐ)</th><th>Mua chuyển khoản (VNĐ)</th><th>Bán ra (VNĐ)</th></tr>
+                  <tr><td class="label">1 USD</td><td class="buy" id="exchange-mua-cash">-</td><td class="buy" id="exchange-mua-transfer">-</td><td class="sell" id="exchange-ban-ra">-</td></tr>
+                </table>
+              </div>
+            </div>
+            <div class="card-face card-back"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="ticker"><div class="text">Tin mới: Giá vàng hôm nay biến động | Fed có thể thay đổi lãi suất | XAU/USD ... (realtime)</div></div>
+  <script src="https://s3.tradingview.com/tv.js"></script>
+  <script>
+    new TradingView.widget({
+      "container_id": "tradingview_chart",
+      "width": "100%",
+      "height": "100%",
+      "symbol": "OANDA:XAUUSD",
+      "interval": "D",
+      "timezone": "Asia/Ho_Chi_Minh",
+      "theme": "light",
+      "style": "1",
+      "locale": "vi",
+      "toolbar_bg": "#f1f1f1",
+      "enable_publishing": false,
+      "allow_symbol_change": true,
+      "details": true,
+      "hide_side_toolbar": false,
+      "studies": ["MASimple@tv-basicstudies"],
+      "withdateranges": true,
+      "show_popup_button": true,
+      "hotlist": true,
+      "calendar": true
+    });
+
+    const dateEl = document.getElementById('current-date');
+    if (dateEl) {
+      const today = new Date();
+      const dd = String(today.getDate()).padStart(2, '0');
+      const mm = String(today.getMonth() + 1).padStart(2, '0');
+      const yyyy = today.getFullYear();
+      dateEl.textContent = `${dd}/${mm}/${yyyy}`;
+    }
+
+    const cardIds = ['card-sjc','card-doji','card-pnj','card-btmc','card-btmh','card-phuquy','card-mihong','card-ngoctham','card-silver-phuquy','card-exchange-vcb'];
+    const goldCardIds = cardIds.slice(0, 8);
+    const silverAndExchangeIds = cardIds.slice(8);
+
+    const PROXY_URL = 'http://localhost:3000/scrape';
+
+    // Initial reveal to show '-' values
+    function initialReveal() {
+      cardIds.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+          el.classList.remove('flipped', 'hidden', 'shine');
+          const buys = el.querySelectorAll('td.buy');
+          const sells = el.querySelectorAll('td.sell');
+          const changes = el.querySelectorAll('td.change');
+          buys.forEach(td => td.textContent = '-');
+          sells.forEach(td => td.textContent = '-');
+          changes.forEach(td => td.textContent = '-');
+        }
+      });
+      const globalTimeEl = document.getElementById('global-time');
+      if (globalTimeEl) globalTimeEl.textContent = 'Cập nhật: -';
+    }
+
+    initialReveal();
+
+    function flipToLogo() {
+      cardIds.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.classList.add('flipped');
+      });
+    }
+
+    function hideAll() {
+      cardIds.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+          el.classList.remove('flipped');
+          el.classList.add('hidden');
+        }
+      });
+    }
+
+    function revealWithShine(cardEl, updates, delay) {
+      setTimeout(() => {
+        cardEl.classList.remove('hidden');
+        cardEl.classList.add('shine');
+        setTimeout(() => {
+          const buys = cardEl.querySelectorAll('td.buy');
+          const sells = cardEl.querySelectorAll('td.sell');
+          const changes = cardEl.querySelectorAll('td.change');
+          if (updates.rows) {
+            updates.rows.forEach((row, idx) => {
+              if (buys[idx]) buys[idx].textContent = row.buy || '-';
+              if (row.buyTransfer && buys[idx + 1]) buys[idx + 1].textContent = row.buyTransfer || '-';
+              if (sells[idx]) sells[idx].textContent = row.sell || '-';
+              if (changes[idx] && row.change !== undefined) {
+                changes[idx].textContent = (row.change >= 0 ? '▲ ' : '▼ ') + Math.abs(row.change);
+                changes[idx].className = 'change ' + (row.change >= 0 ? 'change-up' : 'change-down');
+              }
+            });
+          }
+          const globalTimeEl = document.getElementById('global-time');
+          if (globalTimeEl) globalTimeEl.textContent = `Cập nhật: ${updates.update_time || '-'}`;
+        }, 380);
+        setTimeout(() => cardEl.classList.remove('shine'), 1500);
+      }, delay);
+    }
+
+    async function fetchRealUpdate() {
+      try {
+        console.log('Attempting to fetch from', PROXY_URL);
+        const response = await fetch(PROXY_URL, { method: 'GET', headers: { 'Accept': 'application/json' }, mode: 'cors' });
+        if (!response.ok) throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        const data = await response.json();
+        console.log('Fetched data:', data);
+
+        flipToLogo();
+        setTimeout(hideAll, 700);
+
+        const delays = [0, 200, 400, 600, 800, 1000, 1200, 1400];
+        goldCardIds.forEach((id, index) => {
+          const el = document.getElementById(id);
+          if (!el) return;
+          const brandKey = id.replace('card-', '').toUpperCase();
+          const brandData = data.gold?.[brandKey] || {};
+          revealWithShine(el, {
+            update_time: data.gold?.update_time || '-',
+            rows: [
+              { buy: brandData.mieng_buy?.toFixed(3) || '-', sell: brandData.mieng_sell?.toFixed(3) || '-', change: brandData.mieng_change || 0 },
+              { buy: brandData.nhan_buy?.toFixed(3) || '-', sell: brandData.nhan_sell?.toFixed(3) || '-', change: brandData.nhan_change || 0 }
+            ]
+          }, 1000 + delays[index]);
+        });
+
+        const silverEl = document.getElementById('card-silver-phuquy');
+        if (silverEl && data.silver?.phuquy) {
+          revealWithShine(silverEl, {
+            update_time: data.silver?.update_time || '-',
+            rows: [
+              { buy: (data.silver.phuquy.mieng_buy / 1000000)?.toFixed(3) || '-', sell: (data.silver.phuquy.mieng_sell / 1000000)?.toFixed(3) || '-', change: 0 },
+              { buy: (data.silver.phuquy.thoi_buy / 1000000)?.toFixed(3) || '-', sell: (data.silver.phuquy.thoi_sell / 1000000)?.toFixed(3) || '-', change: 0 }
+            ]
+          }, 1000 + 1600);
+        } else if (silverEl) {
+          revealWithShine(silverEl, {
+            update_time: data.silver?.update_time || '-',
+            rows: [
+              { buy: '-', sell: '-', change: 0 },
+              { buy: '-', sell: '-', change: 0 }
+            ]
+          }, 1000 + 1600);
+        }
+
+        const exchangeEl = document.getElementById('card-exchange-vcb');
+        if (exchangeEl && data.exchange?.vcb) {
+          revealWithShine(exchangeEl, {
+            update_time: data.exchange?.update_time || '-',
+            rows: [{ buy: data.exchange.vcb.mua_cash || '-', buyTransfer: data.exchange.vcb.mua_transfer || '-', sell: data.exchange.vcb.ban_ra || '' }]
+          }, 1000 + 1800);
+        } else if (exchangeEl) {
+          revealWithShine(exchangeEl, {
+            update_time: data.exchange?.update_time || '-',
+            rows: [{ buy: '-', buyTransfer: '-', sell: '-' }]
+          }, 1000 + 1800);
+        }
+      } catch (error) {
+        console.error('Fetch error details:', error);
+        // Reveal with fallback
+        const delays = [0, 200, 400, 600, 800, 1000, 1200, 1400, 1600, 1800];
+        cardIds.forEach((id, index) => {
+          const el = document.getElementById(id);
+          if (el) {
+            revealWithShine(el, {
+              update_time: '-',
+              rows: [{ buy: '-', sell: '-', change: 0 }, { buy: '-', sell: '-', change: 0 }]
+            }, 500 + delays[index]);
+          }
+        });
+      }
+    }
+
+    setInterval(fetchRealUpdate, 60000);
+    fetchRealUpdate();
+  </script>
+</body>
+</html>

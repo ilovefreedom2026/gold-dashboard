@@ -1,0 +1,1 @@
+Nếu cần điều chỉnh chính xác (giảm hoặc tăng khoảng dịch), thay giá trị SILVER_EXTRA_UP_PX.

@@ -1,0 +1,201 @@
+{
+  "gold": {
+    "update_time": "17:51:00 16/10/2025",
+    "SJC": {
+      "mieng_buy": "147.100",
+      "mieng_sell": "149.100",
+      "nhan_buy": "145.900",
+      "nhan_sell": "148.200",
+      "mieng_buy_change": "+1.100",
+      "mieng_sell_change": "+1.100",
+      "nhan_buy_change": "+1.700",
+      "nhan_sell_change": "+1.700",
+      "mieng_buy_change_pct": "+0.75%",
+      "mieng_sell_change_pct": "+0.74%",
+      "nhan_buy_change_pct": "+1.18%",
+      "nhan_sell_change_pct": "+1.16%"
+    },
+    "PNJ": {
+      "mieng_buy": "147.100",
+      "mieng_sell": "149.100",
+      "nhan_buy": "146.000",
+      "nhan_sell": "149.000",
+      "mieng_buy_change": "+1.100",
+      "mieng_sell_change": "+1.100",
+      "nhan_buy_change": "+1.200",
+      "nhan_sell_change": "+1.200",
+      "mieng_buy_change_pct": "+0.75%",
+      "mieng_sell_change_pct": "+0.74%",
+      "nhan_buy_change_pct": "+0.83%",
+      "nhan_sell_change_pct": "+0.81%"
+    },
+    "DOJI": {
+      "mieng_buy": "147.100",
+      "mieng_sell": "149.100",
+      "nhan_buy": "147.000",
+      "nhan_sell": "149.000",
+      "mieng_buy_change": "+1.100",
+      "mieng_sell_change": "+1.100",
+      "nhan_buy_change": "+2.200",
+      "nhan_sell_change": "+1.200",
+      "mieng_buy_change_pct": "+0.75%",
+      "mieng_sell_change_pct": "+0.74%",
+      "nhan_buy_change_pct": "+1.52%",
+      "nhan_sell_change_pct": "+0.81%"
+    },
+    "BTMC": {
+      "mieng_buy": "148.100",
+      "mieng_sell": "149.100",
+      "nhan_buy": "151.000",
+      "nhan_sell": "154.000",
+      "mieng_buy_change": "+2.100",
+      "mieng_sell_change": "+1.100",
+      "nhan_buy_change": "+1.700",
+      "nhan_sell_change": "+1.700",
+      "mieng_buy_change_pct": "+1.44%",
+      "mieng_sell_change_pct": "+0.74%",
+      "nhan_buy_change_pct": "+1.14%",
+      "nhan_sell_change_pct": "+1.12%"
+    },
+    "BTMH": {
+      "mieng_buy": "148.600",
+      "mieng_sell": "149.100",
+      "nhan_buy": "150.500",
+      "nhan_sell": "150.800",
+      "mieng_buy_change": "+2.500",
+      "mieng_sell_change": "+1.200",
+      "nhan_buy_change": "+5.500",
+      "nhan_sell_change": "+3.000",
+      "mieng_buy_change_pct": "+1.71%",
+      "mieng_sell_change_pct": "+0.81%",
+      "nhan_buy_change_pct": "+3.79%",
+      "nhan_sell_change_pct": "+2.03%"
+    },
+    "PHUQUY": {
+      "mieng_buy": "146.500",
+      "mieng_sell": "149.100",
+      "nhan_buy": "146.100",
+      "nhan_sell": "149.100",
+      "mieng_buy_change": "+1.100",
+      "mieng_sell_change": "+1.100",
+      "nhan_buy_change": "+1.300",
+      "nhan_sell_change": "+1.300",
+      "mieng_buy_change_pct": "+0.76%",
+      "mieng_sell_change_pct": "+0.74%",
+      "nhan_buy_change_pct": "+0.90%",
+      "nhan_sell_change_pct": "+0.88%"
+    },
+    "MIHONG": {
+      "mieng_buy": "148.100",
+      "mieng_sell": "149.100",
+      "nhan_buy": "147.100",
+      "nhan_sell": "148.100",
+      "mieng_buy_change": "+1.100",
+      "mieng_sell_change": "+1.100",
+      "nhan_buy_change": "+1.600",
+      "nhan_sell_change": "+1.700",
+      "mieng_buy_change_pct": "+0.75%",
+      "mieng_sell_change_pct": "+0.74%",
+      "nhan_buy_change_pct": "+1.10%",
+      "nhan_sell_change_pct": "+1.16%"
+    },
+    "NGOCTHAM": {
+      "mieng_buy": "147.100",
+      "mieng_sell": "149.100",
+      "nhan_buy": "148.500",
+      "nhan_sell": "152.000",
+      "mieng_buy_change": "+1.100",
+      "mieng_sell_change": "+1.100",
+      "nhan_buy_change": "+2.500",
+      "nhan_sell_change": "+4.000",
+      "mieng_buy_change_pct": "+0.75%",
+      "mieng_sell_change_pct": "+0.74%",
+      "nhan_buy_change_pct": "+1.71%",
+      "nhan_sell_change_pct": "+2.70%"
+    },
+    "update_time_scraped": "17:51:00 16/10/2025"
+  },
+  "silver": {
+    "update_time": "17:51:00 16/10/2025",
+    "phuquy": {
+      "mieng_buy": 2028000,
+      "mieng_sell": 2091000,
+      "thoi_buy": 54079865,
+      "thoi_sell": 55759861,
+      "mieng_buy_change": "+0.007",
+      "mieng_sell_change": "+0.007",
+      "thoi_buy_change": "+0.187",
+      "thoi_sell_change": "+0.187",
+      "thoi_unit": "VNĐ/KG",
+      "mieng_buy_change_pct": "+0.35%",
+      "mieng_sell_change_pct": "+0.34%",
+      "thoi_buy_change_pct": "+0.35%",
+      "thoi_sell_change_pct": "+0.34%"
+    },
+    "update_time_scraped": "17:51:00 16/10/2025"
+  },
+  "exchange": {
+    "update_time": "17:51:00 16/10/2025",
+    "source": "webgia",
+    "vcb": {
+      "mua_cash": "26.124",
+      "mua_transfer": "26.154",
+      "ban_ra": "26.364"
+    },
+    "update_time_scraped": "17:51:00 16/10/2025"
+  },
+  "coccoc": {
+    "update_time": "17:51:00 16/10/2025",
+    "candidates": [
+      {
+        "match": "1",
+        "context": "|| []).push( arguments) }, g[o]['t'] = * new Date })(window, '_googCsa'); if ("
+      },
+      {
+        "match": "1",
+        "context": "} var to = Object(target); for (var i = ; i < arguments.length; i++) { var nextS"
+      },
+      {
+        "match": "0",
+        "context": "ject(nextSource)); for (var nextIndex = , len = keysArray.length; nextIndex < le"
+      },
+      {
+        "match": "1",
+        "context": "s*(\\d+)/i) || []; if (/trident/i.test(M[])) { tem = /\\brv[ :]+(\\d+)/g.exec(ua) |"
+      },
+      {
+        "match": "1",
+        "context": "[]; return { name: 'IE', version: (tem[] || '') }; } if (M[1] === 'Chrome') { t"
+      },
+      {
+        "match": "1",
+        "context": "/); if (tem != null) return { name: tem[].replace('OPR', 'Opera').replace('coc_c"
+      },
+      {
+        "match": "2",
+        "context": "oc_browser', 'coccoc'), version: tem[] }; } M = M[2] ? [M[1], M[2]] : [naviga"
+      },
+      {
+        "match": "1",
+        "context": "h(/version\\/(\\d+)/i)) != null) M.splice(, 1, tem[1]); return { name: M[0], versi"
+      },
+      {
+        "match": "1",
+        "context": "on: M[] }; })(); function logError(win) { var"
+      },
+      {
+        "match": "0",
+        "context": "d); hasPending = false; toSend = []; }, ); } } win.onerror = function () { var p"
+      },
+      {
+        "match": "0",
+        "context": "ar encodedLogs = []; try { for (var i = ; i < logs.length; i++) { encodedLogs[i]"
+      },
+      {
+        "match": "0",
+        "context": "sion; } } catch (e) { if (logs.length > && logs[0].context && logs[0].context.s"
+      }
+    ],
+    "update_time_scraped": "17:51:00 16/10/2025"
+  }
+}
