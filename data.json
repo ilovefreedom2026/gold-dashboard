@@ -1,176 +1,176 @@
 {
   "VN-Index": {
-    "value": "1687.06",
-    "change": "8.56",
-    "percent": "0.51%",
-    "arrow": "▲"
-  },
-  "HNX-Index": {
-    "value": "266.78",
-    "change": "-1.91",
-    "percent": "-0.71%",
+    "value": "1683.18",
+    "change": "-3.88",
+    "percent": "-0.23%",
     "arrow": "▼"
   },
-  "UPCoM-Index": {
-    "value": "111.04",
-    "change": "0.38",
-    "percent": "0.34%",
+  "HNX-Index": {
+    "value": "267.28",
+    "change": "0.50",
+    "percent": "0.19%",
     "arrow": "▲"
+  },
+  "UPCoM-Index": {
+    "value": "110.87",
+    "change": "-0.19",
+    "percent": "-0.17%",
+    "arrow": "▼"
   },
   "VN30": {
-    "value": "1945.78",
-    "change": "14.90",
-    "percent": "0.77%",
-    "arrow": "▲"
+    "value": "1944.60",
+    "change": "-1.18",
+    "percent": "-0.06%",
+    "arrow": "▼"
   },
   "VCB": {
-    "value": "59.80",
-    "change": "+0.2",
-    "percent": "+0.34%",
-    "arrow": "▲"
+    "value": "59.50",
+    "change": "-0.3",
+    "percent": "-0.50%",
+    "arrow": "▼"
   },
   "VHM": {
-    "value": "115.00",
-    "change": "+2",
-    "percent": "+1.77%",
-    "arrow": "▲"
+    "value": "114.50",
+    "change": "-0.5",
+    "percent": "-0.43%",
+    "arrow": "▼"
   },
   "VIC": {
-    "value": "215.00",
-    "change": "+12",
-    "percent": "+5.91%",
+    "value": "219.00",
+    "change": "+4",
+    "percent": "+1.86%",
     "arrow": "▲"
   },
   "BID": {
     "value": "36.90",
-    "change": "-0.3",
-    "percent": "-0.81%",
-    "arrow": "▼"
+    "change": "-",
+    "percent": "+0.00%",
+    "arrow": "-"
   },
   "CTG": {
-    "value": "49.70",
-    "change": "-0.8",
-    "percent": "-1.58%",
-    "arrow": "▼"
+    "value": "49.80",
+    "change": "+0.1",
+    "percent": "+0.20%",
+    "arrow": "▲"
   },
   "TCB": {
-    "value": "37.25",
-    "change": "-0.75",
-    "percent": "-1.97%",
+    "value": "36.10",
+    "change": "-1.15",
+    "percent": "-3.09%",
     "arrow": "▼"
   },
   "GAS": {
-    "value": "59.80",
-    "change": "+0.8",
-    "percent": "+1.36%",
-    "arrow": "▲"
+    "value": "59.60",
+    "change": "-0.2",
+    "percent": "-0.33%",
+    "arrow": "▼"
   },
   "HPG": {
-    "value": "26.50",
-    "change": "-0.2",
-    "percent": "-0.75%",
+    "value": "26.40",
+    "change": "-0.1",
+    "percent": "-0.38%",
     "arrow": "▼"
   },
   "FPT": {
-    "value": "95.00",
-    "change": "-2",
-    "percent": "-2.06%",
-    "arrow": "▼"
+    "value": "97.70",
+    "change": "+2.7",
+    "percent": "+2.84%",
+    "arrow": "▲"
   },
   "VNM": {
-    "value": "56.60",
-    "change": "+0.3",
-    "percent": "+0.53%",
+    "value": "58.10",
+    "change": "+1.5",
+    "percent": "+2.65%",
     "arrow": "▲"
   },
   "BTC-USD": {
-    "value": "109598.00",
-    "change": "+2510.36",
-    "percent": "+2.29%",
+    "value": "111832.00",
+    "change": "+1052.41",
+    "percent": "+0.94%",
     "arrow": "▲"
   },
   "ETH-USD": {
-    "value": "3828.73",
-    "change": "+85.76",
-    "percent": "+2.24%",
+    "value": "3957.87",
+    "change": "+33.49",
+    "percent": "+0.85%",
     "arrow": "▲"
   },
   "BNB-USD": {
-    "value": "1116.72",
-    "change": "+60.45",
-    "percent": "+5.41%",
+    "value": "1120.44",
+    "change": "+15.57",
+    "percent": "+1.39%",
     "arrow": "▲"
   },
   "XRP-USD": {
-    "value": "2.39",
-    "change": "+0.04",
-    "percent": "+1.70%",
+    "value": "2.62",
+    "change": "+0.10",
+    "percent": "+3.95%",
     "arrow": "▲"
   },
   "USDT-USD": {
-    "value": "1.00",
-    "change": "+0.00",
-    "percent": "+0.01%",
-    "arrow": "▲"
-  },
-  "SOL-USD": {
-    "value": "188.96",
-    "change": "+11.34",
-    "percent": "+6.00%",
-    "arrow": "▲"
-  },
-  "USDC-USD": {
     "value": "1.00",
     "change": "-0.00",
     "percent": "-0.00%",
     "arrow": "▼"
   },
+  "SOL-USD": {
+    "value": "194.20",
+    "change": "+1.39",
+    "percent": "+0.71%",
+    "arrow": "▲"
+  },
+  "USDC-USD": {
+    "value": "1.00",
+    "change": "+0.00",
+    "percent": "+0.01%",
+    "arrow": "▲"
+  },
   "STETH-USD": {
-    "value": "3827.73",
-    "change": "+83.04",
-    "percent": "+2.17%",
+    "value": "3957.47",
+    "change": "+35.93",
+    "percent": "+0.91%",
     "arrow": "▲"
   },
   "TRX-USD": {
-    "value": "0.32",
-    "change": "-0.00",
-    "percent": "-0.89%",
+    "value": "0.30",
+    "change": "-0.01",
+    "percent": "-1.70%",
     "arrow": "▼"
   },
   "DOGE-USD": {
-    "value": "0.19",
-    "change": "+0.01",
-    "percent": "+3.20%",
-    "arrow": "▲"
+    "value": "0.20",
+    "change": "-0.00",
+    "percent": "-0.55%",
+    "arrow": "▼"
   },
   "ADA-USD": {
-    "value": "0.64",
-    "change": "+0.03",
-    "percent": "+3.92%",
+    "value": "0.66",
+    "change": "+0.00",
+    "percent": "+0.04%",
     "arrow": "▲"
   },
   "LINK-USD": {
-    "value": "17.31",
-    "change": "+0.31",
-    "percent": "+1.81%",
+    "value": "18.00",
+    "change": "+0.17",
+    "percent": "+0.93%",
     "arrow": "▲"
   },
   "XLM-USD": {
-    "value": "0.31",
+    "value": "0.33",
     "change": "+0.01",
-    "percent": "+2.15%",
+    "percent": "+2.23%",
     "arrow": "▲"
   },
   "HYPE-USD": {
-    "value": "39.68",
-    "change": "+5.21",
-    "percent": "+13.12%",
+    "value": "44.65",
+    "change": "+6.44",
+    "percent": "+14.42%",
     "arrow": "▲"
   },
   "BCH-USD": {
-    "value": "480.82",
-    "change": "+12.94",
-    "percent": "+2.69%",
+    "value": "511.25",
+    "change": "+7.21",
+    "percent": "+1.41%",
     "arrow": "▲"
   }
 }

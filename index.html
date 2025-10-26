@@ -901,7 +901,7 @@
     const cardIds = ['card-sjc','card-doji','card-pnj','card-btmc','card-btmh','card-phuquy','card-mihong','card-ngoctham','card-silver-phuquy','card-exchange-vcb'];
     const goldCardIds = cardIds.slice(0, 8);
     const silverAndExchangeIds = cardIds.slice(8);
-    const PROXY_URL = '/scrape';
+    const PROXY_URL = 'http://localhost:3000/scrape';
     // Helpers: parse numbers returned by server which may be numbers or strings like "138.100" or "-"
     function parseNumberFromServer(v) {
       if (v === undefined || v === null) return undefined;
@@ -1123,7 +1123,7 @@
     // Ticker: fetch /ticker and update scrolling text
     async function fetchTicker() {
       try {
-        const res = await fetch('/ticker');
+        const res = await fetch('http://localhost:3000/ticker');
         if (!res.ok) throw new Error('Ticker fetch failed');
         const j = await res.json();
         if (!j.success) throw new Error('Ticker response not success');
@@ -1427,16 +1427,16 @@
       })('card-exchange-vcb');
       // fetch phuquy silver update via server proxy
       async function fetchPhuquySilverTime() {
-  try {
-    const res = await fetch('/phuquy-silver');
-    if (!res.ok) throw new Error('phuquy proxy failed ' + res.status);
-    const j = await res.json();
-    if (j && j.success && j.time) return j.time;
-  } catch (e) {
-    console.warn('fetchPhuquySilverTime error', e && e.message);
-  }
-  return null;
-}
+        try {
+          const res = await fetch('http://localhost:3000/phuquy-silver');
+          if (!res.ok) throw new Error('phuquy proxy failed ' + res.status);
+          const j = await res.json();
+          if (j && j.success && j.time) return j.time;
+        } catch (e) {
+          console.warn('fetchPhuquySilverTime error', e && e.message);
+        }
+        return null;
+      }
       // patch fetchRealUpdate to update badges as requested:
       const origFetch = window.fetchRealUpdate;
       if (typeof origFetch === 'function') {
@@ -1847,27 +1847,22 @@
 <style>
     #ticker-container, .ticker { display: none !important; }
     #ticker-container-new {
-        position: fixed; bottom: 0; left: 0; width: 100%; height: 60px; background-color: #3c31259a;
-        color: rgb(245, 246, 188); overflow: hidden; z-index: 1001; border-top: 2px solid #3c31259a;
+        position: fixed; bottom: 0; left: 0; width: 100%; height: 60px; background-color: #343326;
+        color: rgb(118, 221, 255); overflow: hidden; z-index: 1001; border-top: 2px solid #343326;
         display: flex; align-items: center;
     }
     #ticker-wrapper-new {
-        display: inline-flex; white-space: nowrap; animation: scroll-ltr-new 120s linear infinite;
+        display: flex; white-space: nowrap; animation: scroll-ltr-new 120s linear infinite;
     }
     #ticker-wrapper-new:hover { animation-play-state: paused; }
-    @keyframes scroll-ltr-new {
-        0% { transform: translateX(0); }
-        100% { transform: translateX(-50%); }
-    }
+    @keyframes scroll-ltr-new { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
     .ticker-item-new {
         display: inline-flex; align-items: center; padding: 0 30px; min-width: 280px; border-right: 1px solid #555;
     }
-    .symbol-new { 
-        font-weight: bold; font-size: 22px; margin-right: 12px; color: #fae6ab; /* Xanh dương cho VN-Index, VCB, BTC-USD */
-    }
-    .value-new { font-size: 26px; line-height: 60px; font-weight: bold; }
-    .positive-new { color: #0fff0f; } /* Xanh lá đậm cho tăng */
-    .negative-new { color: rgb(255, 46, 46); } /* Đỏ tươi cho giảm */
+    .symbol-new { font-weight: bold; font-size: 26px; margin-right: 12px; }
+    .value-new { font-size: 30px; line-height: 60px; font-weight: bold; }
+    .positive-new { color: #6fff6f; }
+    .negative-new { color: #ff7472; }
     #update-time-new { position: absolute; top: 5px; right: 10px; font-size: 14px; color: #ccc; font-weight: bold; }
     #error-new { color: red; text-align: center; display: none; font-size: 14px; font-weight: bold; }
 </style>
@@ -1879,21 +1874,18 @@
 </div>
 
 <script>
-    const itemsNew = ['VN-Index', 'HNX-Index', 'UPCoM-Index', 'VN30', 'VCB', 'VHM', 'VIC', 'BID', 'CTG', 'TCB', 'GAS', 'HPG', 'FPT', 'VNM', 'BTC-USD', 'ETH-USD', 'BNB-USD', 'XRP-USD', 'USDT-USD', 'SOL-USD', 'USDC-USD', 'STETH-USD', 'TRX-USD', 'DOGE-USD', 'ADA-USD', 'LINK-USD', 'XLM-USD', 'HYPE-USD', 'BCH-USD'];
+    const itemsNew = ['VN-Index', 'HNX-Index', 'UPCoM-Index', 'VN30', 'BTC-USD', 'ETH-USD', 'BNB-USD', 'XRP-USD'];
 
     // Khởi tạo base text
     function initTicker() {
         const wrapper = document.getElementById('ticker-wrapper-new');
         wrapper.innerHTML = '';
-        // Nhân đôi danh sách để cuộn liền mạch
-        for (let i = 0; i < 2; i++) {
-            itemsNew.forEach(key => {
-                const div = document.createElement('div');
-                div.className = 'ticker-item-new';
-                div.innerHTML = `<span class="symbol-new">${key}</span><span class="value-new">--.-- --.-- (--.--%)</span>`;
-                wrapper.appendChild(div);
-            });
-        }
+        itemsNew.forEach(key => {
+            const div = document.createElement('div');
+            div.className = 'ticker-item-new';
+            div.innerHTML = `<span class="symbol-new">${key}</span><span class="value-new">--.-- --.-- (--.--%)</span>`;
+            wrapper.appendChild(div);
+        });
         document.getElementById('timestamp-new').textContent = new Date().toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh' });
     }
 
@@ -1920,18 +1912,15 @@
         if (!data) return;
         const wrapper = document.getElementById('ticker-wrapper-new');
         wrapper.innerHTML = '';
-        // Nhân đôi danh sách để cuộn liền mạch
-        for (let i = 0; i < 2; i++) {
-            itemsNew.forEach(key => {
-                const item = data[key] || { value: '--.--', change: '--.--', percent: '--.--%', arrow: '' };
-                const changeStr = `${item.arrow}${item.change} (${item.percent})`;
-                const changeClass = item.percent.includes('+') || item.arrow === '▲' ? 'positive-new' : 'negative-new';
-                const div = document.createElement('div');
-                div.className = 'ticker-item-new';
-                div.innerHTML = `<span class="symbol-new">${key}</span><span class="value-new ${changeClass}">${item.value} ${changeStr}</span>`;
-                wrapper.appendChild(div);
-            });
-        }
+        itemsNew.forEach(key => {
+            const item = data[key] || { value: '--.--', change: '--.--', percent: '--.--%', arrow: '' };
+            const changeStr = `${item.arrow}${item.change} (${item.percent})`;
+            const changeClass = item.percent.includes('+') || item.arrow === '▲' ? 'positive-new' : 'negative-new';
+            const div = document.createElement('div');
+            div.className = 'ticker-item-new';
+            div.innerHTML = `<span class="symbol-new">${key}</span><span class="value-new ${changeClass}">${item.value} ${changeStr}</span>`;
+            wrapper.appendChild(div);
+        });
         document.getElementById('timestamp-new').textContent = new Date().toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh' });
     }
 
